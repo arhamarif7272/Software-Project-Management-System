@@ -3,28 +3,26 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', [MainController::class, 'indexShow'])->named('show.home');
-
 /*
 |--------------------------------------------------------------------------
-| Authentication
+| Authentication (Commented Out to bypass login/register)
 |--------------------------------------------------------------------------
 */
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
-    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register'])->name('register.store');
-});
+// Route::middleware('guest')->group(function () {
+//     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+//     Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
+//     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+//     Route::post('/register', [AuthController::class, 'register'])->name('register.store');
+// });
 
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+// Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 /*
 |--------------------------------------------------------------------------
 | Application (all six modules live in MainController)
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
     Route::get('/', fn () => redirect()->route('projects.index'));
 
     Route::post('/status-date', [MainController::class, 'setStatusDate'])->name('status-date.set');
@@ -114,4 +112,4 @@ Route::middleware('auth')->group(function () {
     // ---- Module 6: Dashboard & Reporting ----
     Route::get('/projects/{project}/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
     Route::get('/projects/{project}/report', [MainController::class, 'report'])->name('report');
-});
+// });
